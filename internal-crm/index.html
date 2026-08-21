@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevLogix CRM — Leads</title>
+<meta name="description" content="DevLogix internal CRM. Manage leads through Contacted, Meeting Booked, and Closed stages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/kanban.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="app-shell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+    <div class="sidebar-brand">
+      <span class="brand-mark" aria-hidden="true">DL</span>
+      <span class="brand-name">DevLogix</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li>
+          <a class="nav-link" href="#" data-placeholder>
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-5H4v5Zm10 0h6V11h-6v9Zm0-16v5h6V4h-6Z"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link is-active" href="#" aria-current="page">
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 5h18v2H3V5Zm0 6h18v2H3v-2Zm0 6h12v2H3v-2Z"/></svg>
+            <span>Leads</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#" data-placeholder>
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5Z"/></svg>
+            <span>Contacts</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#" data-placeholder>
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"/></svg>
+            <span>Activities</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#" data-placeholder>
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V9h4v12H5Zm7 0V3h4v18h-4Zm7 0v-7h4v7h-4Z"/></svg>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" href="#" data-placeholder>
+            <svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.5 7.5 0 0 0-1.7-1L15 3h-4l-.3 2.6a7.5 7.5 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.5 7.5 0 0 0 1.7 1L11 21h4l.3-2.6a7.5 7.5 0 0 0 1.7-1l2.4 1 2-3.4Zm-7.4 2.5a3.5 3.5 0 1 1 3.5-3.5 3.5 3.5 0 0 1-3.5 3.5Z"/></svg>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <p class="sidebar-note">DevLogix CRM v1.0</p>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+  <!-- ===================== MAIN COLUMN ===================== -->
+  <div class="main-column">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-left">
+        <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+        </button>
+        <div>
+          <p class="header-eyebrow">CRM</p>
+          <h1 class="header-title">Leads</h1>
+        </div>
+      </div>
+
+      <div class="header-search">
+        <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5L20.5 19l-5-5Zm-6 0a4.5 4.5 0 1 1 4.5-4.5A4.5 4.5 0 0 1 9.5 14Z"/></svg>
+        <label for="leadSearch" class="sr-only">Search leads by name or company</label>
+        <input type="search" id="leadSearch" placeholder="Search leads by name or company" autocomplete="off">
+      </div>
+
+      <div class="header-right">
+        <button class="icon-btn" aria-label="View notifications">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2H9.8A2.2 2.2 0 0 0 12 22ZM18 16v-5a6 6 0 0 0-4.8-5.9V4a1.2 1.2 0 1 0-2.4 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1Z"/></svg>
+          <span class="notif-dot" aria-hidden="true"></span>
+        </button>
+        <div class="user-chip">
+          <span class="avatar avatar-sm" aria-hidden="true">AK</span>
+          <div class="user-chip-text">
+            <span class="user-name">Kaneez Fatima</span>
+            <span class="user-role">BD Lead</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN BOARD AREA -->
+    <main class="main-content" id="main-content">
+      <div class="board-toolbar">
+        <div class="board-heading">
+          <h2 class="board-title">Sales Pipeline</h2>
+          <p class="board-subtitle">Track every lead from first contact through close.</p>
+        </div>
+
+        <div class="board-controls">
+          <label for="priorityFilter" class="sr-only">Filter by priority</label>
+          <select id="priorityFilter" class="select-control">
+            <option value="all">All priorities</option>
+            <option value="High">High priority</option>
+            <option value="Medium">Medium priority</option>
+            <option value="Low">Low priority</option>
+          </select>
+          <button class="btn btn-primary" id="addLeadBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"/></svg>
+            New lead
+          </button>
+        </div>
+      </div>
+
+      <div class="kanban-board" id="kanbanBoard" role="list" aria-label="Lead pipeline board">
+        <!-- Columns are rendered by js/kanban.js -->
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===================== LEAD DETAIL MODAL ===================== -->
+<div class="modal-backdrop" id="modalBackdrop" hidden></div>
+
+<div class="modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalLeadName" hidden>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 class="modal-lead-name" id="modalLeadName">Lead name</h2>
+      <p class="modal-lead-company" id="modalLeadCompany">Company name</p>
+    </div>
+    <button class="icon-btn" id="modalCloseBtn" type="button" aria-label="Close lead details">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3Z"/></svg>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form id="leadForm" novalidate>
+      <div class="field-grid">
+        <div class="field">
+          <label for="fieldName">Lead name</label>
+          <input type="text" id="fieldName" name="name" disabled required>
+        </div>
+        <div class="field">
+          <label for="fieldCompany">Company</label>
+          <input type="text" id="fieldCompany" name="company" disabled required>
+        </div>
+        <div class="field">
+          <label for="fieldEmail">Email</label>
+          <input type="email" id="fieldEmail" name="email" disabled>
+        </div>
+        <div class="field">
+          <label for="fieldPhone">Phone</label>
+          <input type="tel" id="fieldPhone" name="phone" disabled>
+        </div>
+        <div class="field">
+          <label for="fieldOwner">Owner</label>
+          <input type="text" id="fieldOwner" name="owner" disabled>
+        </div>
+        <div class="field">
+          <label for="fieldStage">Stage</label>
+          <select id="fieldStage" name="stage" disabled>
+            <option value="Contacted">Contacted</option>
+            <option value="Meeting Booked">Meeting Booked</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fieldPriority">Priority</label>
+          <select id="fieldPriority" name="priority" disabled>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fieldSource">Source</label>
+          <input type="text" id="fieldSource" name="source" disabled>
+        </div>
+        <div class="field field-wide">
+          <label for="fieldActivity">Last activity</label>
+          <input type="text" id="fieldActivity" name="lastActivity" disabled>
+        </div>
+        <div class="field field-wide">
+          <label for="fieldNotes">Notes</label>
+          <textarea id="fieldNotes" name="notes" rows="4" disabled></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-danger-outline" id="deleteLeadBtn" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm-3 6h12l-1 12H7L6 9Z"/></svg>
+      Delete lead
+    </button>
+    <div class="modal-footer-right">
+      <button class="btn btn-secondary" id="cancelBtn" type="button">Cancel</button>
+      <button class="btn btn-secondary" id="editBtn" type="button">Edit</button>
+      <button class="btn btn-primary" id="saveBtn" type="button" hidden>Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/kanban.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

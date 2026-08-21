@@ -1,0 +1,136 @@
+/* ==========================================================================
+   DevLogix CRM — Responsive Behavior
+   ========================================================================== */
+
+/* ---- Tablet ---- */
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 208px;
+  }
+
+  .main-content {
+    padding: var(--space-5);
+  }
+
+  .kanban-board {
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .header-search {
+    max-width: 280px;
+  }
+}
+
+/* ---- Small tablet / large mobile: sidebar becomes an off-canvas drawer ---- */
+
+@media (max-width: 880px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay:not([hidden]) {
+    display: block;
+  }
+
+  .header-eyebrow {
+    display: none;
+  }
+}
+
+/* ---- Mobile ---- */
+
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0 var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .header-search {
+    max-width: none;
+  }
+
+  .user-chip-text {
+    display: none;
+  }
+
+  .main-content {
+    padding: var(--space-4);
+  }
+
+  .board-toolbar {
+    align-items: stretch;
+  }
+
+  .board-controls {
+    width: 100%;
+  }
+
+  .select-control {
+    flex: 1;
+  }
+
+  .kanban-board {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(272px, 84vw);
+    overflow-x: auto;
+    padding-bottom: var(--space-3);
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .kanban-column {
+    scroll-snap-align: start;
+  }
+
+  .modal-body {
+    padding: var(--space-5);
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .modal-footer-right {
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
