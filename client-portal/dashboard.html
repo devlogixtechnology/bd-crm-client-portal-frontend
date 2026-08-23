@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevLogix Client Portal — Dashboard</title>
+  <meta name="description" content="DevLogix Client Onboarding Portal & Document Center" />
+
+  <!-- ============================================================
+       Squad Lead : Fatima Nadeem
+       Team       : BD CRM Client Portal Frontend Squad
+       Company    : DevLogix Technologies
+       Module     : Client Dashboard UI & API Integration
+       File       : client-portal/dashboard.html
+       ============================================================ -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-inner">
+      <div class="sidebar-brand" id="sidebarBrand"></div>
+      <nav class="sidebar-nav" id="sidebarNav"></nav>
+      <div class="sidebar-footer" id="sidebarFooter"></div>
+    </div>
+  </aside>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <div class="main-wrapper">
+    <header class="topbar" id="topbar" role="banner"></header>
+    <main class="main-content" id="mainContent">
+      <section class="section" id="progressSection" aria-label="Onboarding Progress"></section>
+      <section class="section" id="documentSection" aria-label="Document Center"></section>
+    </main>
+  </div>
+
+  <!-- ========== DIGITAL AGREEMENT SIGNATURE MODAL ========== -->
+  <div class="modal-overlay" id="signatureModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Sign Agreement</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-alert" id="modalAlert" role="status"></div>
+        <div class="modal-doc-info" id="modalDocInfo"></div>
+        <div class="modal-field">
+          <label for="signerName">Your Full Name</label>
+          <input type="text" id="signerName" placeholder="Type your full name" />
+        </div>
+        <div class="modal-field">
+          <label>Digital Signature Preview</label>
+          <div class="signature-preview" id="signaturePreview">Your signature appears here</div>
+        </div>
+        <div class="modal-field">
+          <label for="signatureInput">Type Your Signature</label>
+          <input type="text" id="signatureInput" class="signature-style" placeholder="Type to sign..." />
+        </div>
+        <label class="terms-checkbox">
+          <input type="checkbox" id="termsAccept" />
+          <span>I have read and agree to the terms and conditions of this agreement. I understand this constitutes a legally binding digital signature.</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn secondary" id="modalCancel">Cancel</button>
+        <button class="modal-btn primary" id="modalSubmit" disabled>Sign Agreement</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="js/api/mock-api.js"></script>
+  <script src="js/api/auth-guard.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
