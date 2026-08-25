@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Devlogics CRM — Kanban</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Login Screen -->
+<div id="loginScreen" style="display: flex; position: fixed; inset: 0; background: #f4f6f8; z-index: 10000; justify-content: center; align-items: center;">
+  <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center;">
+    <div style="margin-bottom: 24px;">
+      <div class="brand" style="justify-content: center; margin-bottom: 16px;"><div class="brand-mark">D</div><span style="font-size: 24px; font-weight: 700; color: #2C3E50;">DEVLOGICS</span></div>
+      <p style="color: #5F6B73;">Sign in to access your CRM</p>
+    </div>
+    <form id="loginForm" onsubmit="handleLogin(event)" style="text-align: left;">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="username" class="field-input" placeholder="admin" required>
+      </div>
+      <div class="field" style="margin-top: 16px;">
+        <label>Password</label>
+        <input type="password" id="password" class="field-input" placeholder="admin" required>
+      </div>
+      <div id="loginError" style="color: #e74c3c; margin-top: 12px; font-size: 14px; display: none;"></div>
+      <button type="submit" class="primary" id="loginBtn" style="width: 100%; margin-top: 24px; justify-content: center;">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<div class="app" style="display: none;" id="mainApp">
+<aside class="sidebar">
+<div class="brand"><div class="brand-mark">D</div><span>DEVLOGICS</span></div>
+<nav class="nav">
+<button data-page="dashboard">Dashboard</button>
+<button data-page="crm" class="active">CRM / Kanban</button>
+<button data-page="leads">Leads</button>
+<button data-page="contacts">Contacts</button>
+<button data-page="reports">Reports</button>
+</nav>
+<div class="side-bottom">
+<button class="side-link" data-page="settings">⚙ Settings</button>
+<div class="user-mini"><div class="avatar">DV</div><span>Devlogics</span></div>
+</div>
+</aside>
+
+<main class="main">
+<div id="dashboard" class="page">
+<header class="topbar"><div><div class="crumb">Workspace / Overview</div><h1>Dashboard</h1></div><div class="top-actions"><button class="icon-btn" onclick="notify()">🔔</button><div class="avatar">DV</div></div></header>
+<div class="stats" id="dashStats"></div>
+<div class="report-grid"><div class="report-card"><h3>Pipeline overview</h3><div id="pipelineMini"></div></div><div class="report-card"><h3>Quick actions</h3><button class="primary" onclick="openAddLead()">＋ Add lead</button> <button class="btn" onclick="navigate('crm')">Open Kanban</button></div></div>
+</div>
+
+<div id="crm" class="page active">
+<header class="topbar"><div><div class="crumb">CRM / Leads</div><h1>Lead Management</h1></div><div class="top-actions"><button class="icon-btn" onclick="notify()">🔔</button><div class="avatar">DV</div></div></header>
+<div class="toolbar"><div class="search">⌕ <input id="search" placeholder="Search leads by name, company or email..."></div><button class="btn" onclick="openFilters()">☷ Filters</button><button class="primary" onclick="openAddLead()">＋ Add lead</button></div>
+<div class="board-head"><div><h2>Kanban Board</h2><p>Manage leads through the sales pipeline</p><div class="hint">Drag cards between stages • Click any lead card to open its full CRM workflow</div></div><button class="btn" onclick="notify('Kanban view is active.')">Board⌄</button></div>
+<div class="board" id="board"></div>
+</div>
+
+<div id="leads" class="page">
+<header class="topbar"><div><div class="crumb">CRM / Leads</div><h1>All Leads</h1></div><button class="primary" onclick="openAddLead()">＋ Add lead</button></header>
+<div class="toolbar"><div class="search">⌕ <input id="leadSearch" placeholder="Search all leads..."></div></div>
+<div class="table-wrap" style="margin-top:18px"><table><thead><tr><th>Name</th><th>Company</th><th>Value</th><th>Stage</th><th>Assignee</th><th>Action</th></tr></thead><tbody id="leadTable"></tbody></table></div>
+</div>
+
+<div id="contacts" class="page">
+<header class="topbar"><div><div class="crumb">CRM / Contacts</div><h1>Contacts</h1></div><button class="primary" onclick="openAddContact()">＋ Add contact</button></header>
+<div class="table-wrap" style="margin-top:22px"><table><thead><tr><th>Contact</th><th>Company</th><th>Email</th><th>Phone</th><th>Lead</th><th>Action</th></tr></thead><tbody id="contactTable"></tbody></table></div>
+</div>
+
+<div id="reports" class="page">
+<header class="topbar"><div><div class="crumb">CRM / Reports</div><h1>Sales Reports</h1></div><button class="btn" onclick="notify('Report refreshed.')">↻ Refresh</button></header>
+<div class="stats" id="reportStats"></div><div class="report-grid"><div class="report-card"><h3>Leads by stage</h3><div id="reportBars"></div></div><div class="report-card"><h3>Pipeline value</h3><div id="valueRows"></div></div></div>
+</div>
+
+<div id="settings" class="page">
+<header class="topbar"><div><div class="crumb">Workspace / Settings</div><h1>Settings</h1></div></header>
+<div class="settings-grid"><div class="settings-card"><h3>Workspace</h3><div class="field"><label>Workspace name</label><input class="field-input" value="Devlogics CRM"></div><div class="field"><label>Default assignee</label><input class="field-input" value="Devlogics"></div><button class="primary" onclick="notify('Settings saved successfully.')">Save settings</button></div>
+<div class="settings-card"><h3>Kanban preferences</h3><div class="field"><label>Default WIP limit</label><select class="field-input"><option>5</option><option>10</option><option>Unlimited</option></select></div><div class="field"><label>Board style</label><select class="field-input"><option>Trello / ClickUp style</option><option>Compact</option></select></div><button class="btn" onclick="notify('Preferences updated.')">Apply</button></div></div>
+</div>
+</main>
+</div>
+<div id="modalRoot"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
